@@ -17,8 +17,7 @@ public class ClienteServiceImpl implements IClienteService {
 	@Override
 	// @Transactional(readOnly=true) si se quiere sobreescribir el @Transactional del dao
 	public List<Cliente> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return (List<Cliente>) clienteDao.findAll();
 	}
 
 }
