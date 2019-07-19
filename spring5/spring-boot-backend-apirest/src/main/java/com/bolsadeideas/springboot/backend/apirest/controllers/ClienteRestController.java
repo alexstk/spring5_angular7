@@ -58,13 +58,5 @@ public class ClienteRestController {
 	public void delete(@PathVariable Long id) {
 		clienteService.delete(id);
 	}
-	
-	//TODO
-	/*
-	 * Ensayar el @PutMapping con path
-	 * Ensayar el @PrePersist con otro nombre 
-	 * */
-	
-	
-	
+		
 }

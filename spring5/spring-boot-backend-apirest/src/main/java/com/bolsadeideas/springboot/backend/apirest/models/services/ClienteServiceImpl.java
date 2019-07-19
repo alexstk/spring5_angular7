@@ -28,13 +28,13 @@ public class ClienteServiceImpl implements IClienteService {
 	}
 
 	@Override
-	@Transactional()
+	@Transactional
 	public Cliente save(Cliente cliente) {
 		return clienteDao.save(cliente);
 	}
 
 	@Override
-	@Transactional()
+	@Transactional
 	public void delete(Long id) {
 		clienteDao.deleteById(id);
 	}
