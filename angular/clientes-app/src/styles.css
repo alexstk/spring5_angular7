@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+/*
+These is for problems with fronend overflow. It was solved when using class card on footer.component.html
+html{
+    position: relative;
+    min-height: 100%;
+}
+
+body{
+    margin-bottom: 60px;
+}
+
+.wrap{
+    padding-bottom: 60px;
+} */
