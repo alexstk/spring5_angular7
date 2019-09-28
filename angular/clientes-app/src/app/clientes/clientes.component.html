@@ -14,6 +14,7 @@
                     <th>Email</th>
                     <th>Fecha</th>
                     <th>Editar</th>
+                    <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,7 +25,10 @@
                     <td>{{cliente.email}}</td>
                     <td>{{cliente.createAt}}</td>
                     <td>
-                        <button name="button" name="button" class="btn btn-primary" [routerLink]="['/clientes/form', cliente.id]">Editar</button>
+                        <button type="button" name="Editar" class="btn btn-primary" [routerLink]="['/clientes/form', cliente.id]">Editar</button>
+                    </td>
+                    <td>
+                        <button type="button" name="Eliminar" class="btn btn-danger" (click)="delete(cliente)">Eliminar</button>
                     </td>
                 </tr>
             </tbody>
