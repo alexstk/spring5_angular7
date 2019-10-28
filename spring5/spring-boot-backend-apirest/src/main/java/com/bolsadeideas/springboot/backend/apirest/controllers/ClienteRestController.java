@@ -52,7 +52,6 @@ public class ClienteRestController {
 		if(cliente == null) {
 			response.put("mensaje", "El cliente ID: ".concat(id.toString()).concat(" no existe en la base de datos!"));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-			
 		}
 		
 		return new ResponseEntity<Cliente>(cliente, HttpStatus.FOUND);
@@ -77,14 +76,32 @@ public class ClienteRestController {
 	}
 	
 	@PutMapping("/clientes/{id}")
-	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente update(@RequestBody Cliente cliente, @PathVariable Long id) {
+	public ResponseEntity<Map<String, Object>> update(@RequestBody Cliente cliente, @PathVariable Long id) {
+		Map<String, Object> response = new HashMap<>();
+		Cliente clienteUpdated = null;
+		
 		Cliente clienteActual = clienteService.findById(id);
+		if(clienteActual == null) {
+			response.put("mensaje", "Error: no se pudo editar cliente ID: ".concat(id.toString()).concat(" no existe en la base de datos!"));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		
 		clienteActual.setApellido(cliente.getApellido());
 		clienteActual.setNombre(cliente.getNombre());
 		clienteActual.setEmail(cliente.getEmail());
+		clienteActual.setCreateAt(cliente.getCreateAt());
+				
+		try {
+			clienteUpdated = clienteService.save(clienteActual);
+		} catch (DataAccessException dae) {
+			response.put("mensaje", "Error al realizar el update en la base de datos");
+			response.put("error", dae.getMessage().concat(": ").concat(dae.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		
-		return clienteService.save(clienteActual);
+		response.put("cliente", clienteUpdated);
+		response.put("mensaje", "El cliente ha sido actualizado con éxito!");
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/clientes/{id}")
