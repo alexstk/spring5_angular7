@@ -42,12 +42,12 @@ export class FormComponent implements OnInit {
         Swal.fire('Nuevo Cliente', `El cliente ${cliente.nombre} ha sido creado con éxito!`, 'success');
       },
       err => {
-        this.errores = err.error.errores as string[]; 
+        this.errores = err.error.errors as string[]; 
         console.error('Codigo del error desde el backend: ' + err.status);
-        console.error(err.error.errores);
+        console.error(err.error.errors);
       }
     );
-  }
+  } 
 
   update(): void {
     this.clienteService.update(this.cliente)
@@ -56,9 +56,9 @@ export class FormComponent implements OnInit {
           Swal.fire('Cliente Actualizado', `${json.mensaje}: ${json.cliente.nombre} actualizado  con exito.`, 'success')
         },
         err => {
-          this.errores = err.error.errores as string[]; 
+          this.errores = err.error.errors as string[]; 
           console.error('Codigo del error desde el backend: ' + err.status);
-          console.error(err.error.errores);
+          console.error(err.error.errors);
         }
       );
   }
