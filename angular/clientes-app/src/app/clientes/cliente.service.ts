@@ -16,9 +16,16 @@ export class ClienteService {
   constructor(private http: HttpClient, private router:Router) { }
   
   getClientes(): Observable<Cliente[]> {
-    return this.http.get<Cliente[]>(this.urlEndPoint);
-  }
-  
+    return this.http.get<Cliente[]>(this.urlEndPoint).pipe(
+      map(response => {
+        let clientes = response as Cliente[];
+        return clientes.map(cliente => {
+          cliente.nombre = cliente.nombre.toUpperCase();
+          return cliente;
+        })
+      })
+    )};
+        
   create(cliente: Cliente): Observable<Cliente>{
     return this.http.post(this.urlEndPoint, cliente, {headers: this.httpHeaders}).pipe(
       map((response: any) => response.cliente as Cliente),
