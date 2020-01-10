@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'paginator-nav',
@@ -15,12 +15,21 @@ export class PaginatorComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
-    
+    this.initPaginator();
+  
   }
 
-  ngOnChanges(){
-    var pagina: number = this.paginador.number + 1;
-    var totalPaginas = this.paginador.totalPages;
+  ngOnChanges(changes: SimpleChanges){
+    let paginadorActualizado = changes['paginador'];
+    if (paginadorActualizado.previousValue) {
+      this.initPaginator();
+    }
+
+  }
+
+  private initPaginator(): void{
+    let pagina: number = this.paginador.number + 1;
+    let totalPaginas = this.paginador.totalPages;
 
     // Mostrando de a 9 paginas en el paginador
     this.desde = Math.min(Math.max(1, pagina - 5), totalPaginas - 5);
@@ -31,6 +40,5 @@ export class PaginatorComponent implements OnInit, OnChanges {
     } else {
       this.paginas = new Array(this.paginador.totalPages).fill(0).map((valor, indice) => indice + 1); //valor = indice + 1
     }
-
   }
 }
