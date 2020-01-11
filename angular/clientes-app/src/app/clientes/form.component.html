@@ -35,7 +35,7 @@
             <div class="form-group row"> 
                 <label for="email" class="col-form-label col-sm-2">Email</label>
                 <div class="col-sm-6">
-                    <input id="email" type="text" class="form-control" [(ngModel)]="cliente.email" name="Email" #email="ngModel"> <!-- required email -->
+                    <input id="email" type="email" class="form-control" [(ngModel)]="cliente.email" name="Email" #email="ngModel"> <!-- required email -->
                     <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
                         <div *ngIf="email.errors.required">
                             Email es requerido
@@ -44,6 +44,13 @@
                             Email debe terner un formato válido
                         </div>
                     </div>
+                </div>
+            </div>
+            <!-- Solo se esta usando la validacion del backend para todos los campos -->
+            <div class="form-group row">
+                <label for="fecha" class="col-form-label col-sm-2">Fecha</label>
+                <div class="col-sm-6">
+                    <input id="fecha" type="date" class="form-control" [(ngModel)]="cliente.createAt" name="Fecha">
                 </div>
             </div>
             <div class="form-group row">
