@@ -50,7 +50,9 @@
             <div class="form-group row">
                 <label for="fecha" class="col-form-label col-sm-2">Fecha</label>
                 <div class="col-sm-6">
-                    <input id="fecha" type="date" class="form-control" [(ngModel)]="cliente.createAt" name="Fecha">
+                    <input [matDatepicker]="myDatepicker" id="fecha" class="form-control" [(ngModel)]="cliente.createAt" name="Fecha" style="display:inline; width: 300px;"> 
+                    <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #myDatepicker></mat-datepicker>
                 </div>
             </div>
             <div class="form-group row">
