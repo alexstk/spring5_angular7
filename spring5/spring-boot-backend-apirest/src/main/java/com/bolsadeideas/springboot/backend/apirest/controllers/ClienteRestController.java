@@ -1,5 +1,6 @@
 package com.bolsadeideas.springboot.backend.apirest.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -148,12 +149,22 @@ public class ClienteRestController {
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
 		
+		Cliente cliente = clienteService.findById(id);
+		
 		try {
+			String nombreFotoAnterior = cliente.getFoto();
+			if(nombreFotoAnterior != null && nombreFotoAnterior.length() > 0) {
+				Path rutaFotoAnterior = Paths.get("uploads").resolve(nombreFotoAnterior).toAbsolutePath();
+				Files.deleteIfExists(rutaFotoAnterior);
+			}
 			clienteService.delete(id);
 		} catch (DataAccessException dae) {
 			response.put("mensaje", "Error al realizar el delete en la base de datos");
 			response.put("error", dae.getMessage().concat(": ").concat(dae.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (IOException ioe) {
+			response.put("mensaje", "Error al borrar la foto del cliente " + cliente.getNombre());
+			response.put("error", ioe.getMessage().concat(": ").concat(ioe.getCause().getMessage()));
 		}
 		
 		response.put("mensaje", "El cliente ha sido eliminado con éxito!");
@@ -177,6 +188,17 @@ public class ClienteRestController {
 			}
 			
 			Cliente cliente = clienteService.findById(id);
+			
+			String nombreFotoAnterior = cliente.getFoto();
+			if(nombreFotoAnterior != null && nombreFotoAnterior.length() > 0) {
+				Path rutaFotoAnterior = Paths.get("uploads").resolve(nombreFotoAnterior).toAbsolutePath();
+				File archivoFotoAnterior = rutaFotoAnterior.toFile();
+				if(archivoFotoAnterior.exists() && archivoFotoAnterior.canRead()){
+					archivoFotoAnterior.delete();
+					
+				}
+			}
+			
 			cliente.setFoto(nombreArchivo);
 			clienteService.save(cliente);
 			
