@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from './cliente';
+import { Region } from './region';
 import { ClienteService } from './cliente.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -11,6 +12,7 @@ import Swal from 'sweetalert2';
 export class FormComponent implements OnInit {
 
   private cliente: Cliente = new Cliente();
+  private regiones: Region[];
   private titulo: string = 'Crear Cliente';
 
   private errores: string[];
@@ -32,6 +34,7 @@ export class FormComponent implements OnInit {
         this.clienteService.getCliente(id).subscribe(cliente => this.cliente = cliente);
       }
     });
+    this.clienteService.getRegiones().subscribe(regiones => this.regiones = regiones);
   }
 
   //Con o sin public es public

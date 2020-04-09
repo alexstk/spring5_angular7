@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 //import { formatDate, DatePipe } from '@angular/common';
 
 import { Cliente } from './cliente';
+import { Region } from './region';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common/http';
@@ -16,6 +17,10 @@ export class ClienteService {
   private httpHeaders = new HttpHeaders({'ContentType': 'application/json'})
   
   constructor(private http: HttpClient, private router:Router) { }
+
+  getRegiones(): Observable<Region[]>{
+    return this.http.get<Region[]>(this.urlEndPoint + 'regiones');
+  }
   
   getClientes(page: number): Observable<any> {
     return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
