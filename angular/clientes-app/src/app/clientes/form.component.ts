@@ -39,6 +39,7 @@ export class FormComponent implements OnInit {
 
   //Con o sin public es public
   create(): void {
+    console.log(this.cliente);
     this.clienteService.create(this.cliente).subscribe(
       cliente => {
         this.router.navigate(['/clientes']);
@@ -53,6 +54,7 @@ export class FormComponent implements OnInit {
   } 
 
   update(): void {
+    console.log(this.cliente);
     this.clienteService.update(this.cliente)
       .subscribe(json => {
           this.router.navigate(['/clientes'])
@@ -66,4 +68,9 @@ export class FormComponent implements OnInit {
       );
   }
 
+  // o1 es el objeto del option, o2 el del select (el del cliente)
+  compararRegion(o1: Region, o2: Region): boolean {
+    return o1 === undefined || o2 === undefined ? false : o1.id === o2.id;  // suficiente para mi
+    //return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;  // propuesta profe
+  }
 }
