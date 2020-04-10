@@ -19,7 +19,7 @@ export class ClienteService {
   constructor(private http: HttpClient, private router:Router) { }
 
   getRegiones(): Observable<Region[]>{
-    return this.http.get<Region[]>(this.urlEndPoint + 'regiones');
+    return this.http.get<Region[]>(this.urlEndPoint + '/regiones');
   }
   
   getClientes(page: number): Observable<any> {
