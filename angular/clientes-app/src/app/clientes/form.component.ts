@@ -70,7 +70,9 @@ export class FormComponent implements OnInit {
 
   // o1 es el objeto del option, o2 el del select (el del cliente)
   compararRegion(o1: Region, o2: Region): boolean {
-    return o1 === undefined || o2 === undefined ? false : o1.id === o2.id;  // suficiente para mi
-    //return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;  // propuesta profe
+    if (o1 === undefined && o2 === undefined) {
+      return true;
+    }
+    return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
   }
 }
