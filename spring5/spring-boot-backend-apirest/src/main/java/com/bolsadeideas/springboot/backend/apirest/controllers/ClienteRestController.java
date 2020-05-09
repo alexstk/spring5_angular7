@@ -169,7 +169,7 @@ public class ClienteRestController {
 		}
 		
 		response.put("mensaje", "El cliente ha sido eliminado con éxito!");
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NO_CONTENT);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 	
 	@PostMapping("clientes/upload")
