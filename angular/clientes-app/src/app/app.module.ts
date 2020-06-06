@@ -18,6 +18,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { DetalleComponent } from './clientes/detalle/detalle.component';
+import { LoginComponent } from './usuarios/login.component';
 
 registerLocaleData(localeEs, 'es');
 
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: 'clientes', component: ClientesComponent },
   { path: 'clientes/page/:page', component: ClientesComponent },
   { path: 'clientes/form', component: FormComponent },
-  { path: 'clientes/form/:id', component: FormComponent }
+  { path: 'clientes/form/:id', component: FormComponent },
+  { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({
@@ -39,7 +41,8 @@ const routes: Routes = [
     ClientesComponent,
     FormComponent,
     PaginatorComponent,
-    DetalleComponent
+    DetalleComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
