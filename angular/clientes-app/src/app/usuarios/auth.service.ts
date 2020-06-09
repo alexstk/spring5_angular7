@@ -13,7 +13,7 @@ export class AuthService {
   login(usuario: Usuario): Observable<any> {
     const urlEndpoint = 'http://localhost:8090/oauth/token';
 
-    const credenciales = btoa('angularapp' + ':' + '13245');
+    const credenciales = btoa('angularapp' + ':' + '12345');
     const httpHeaders = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': 'Basic ' + credenciales
@@ -22,9 +22,10 @@ export class AuthService {
     let params = new URLSearchParams();
     params.set('grant_type', 'password');
     params.set('username', usuario.username);
-    params.set('grant_type', usuario.password);
+    params.set('password', usuario.password);
+    console.log(params.toString());
 
-    return this.http.post<any>(urlEndpoint, params, { headers: httpHeaders });
+    return this.http.post<any>(urlEndpoint, params.toString(), { headers: httpHeaders });
 
   }
 }
