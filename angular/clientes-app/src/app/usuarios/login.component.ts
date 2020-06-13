@@ -18,6 +18,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.authService.isAuthenticated()) {
+      swal.fire('Login', `Hola ${this.authService.usuario.username}, ya estás autenticado!`, 'info');
+      this.router.navigate(['/clientes']);
+    }
   }
 
   login(): void {
@@ -26,7 +30,7 @@ export class LoginComponent implements OnInit {
       swal.fire('Error Login', 'Username o Password vacías!', 'error');
       return;
     }
-    
+
     this.authService.login(this.usuario).subscribe(response => {
       console.log(response);
       this.authService.guardarUsuario(response.access_token);
@@ -35,10 +39,10 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/clientes']);
       swal.fire('Login', `Hola ${usuario.username}, has iniciado sesión con exito`, 'success');
     }, err => {
-      if (err.status == 400){
+      if (err.status == 400) {
         swal.fire('Error Login', 'Usuario o clave incorrectas!', 'error');
       }
     });
   }
-  
+
 }

@@ -41,17 +41,17 @@ export class AuthService {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': 'Basic ' + credenciales
     });
-    
+
     let params = new URLSearchParams();
     params.set('grant_type', 'password');
     params.set('username', usuario.username);
     params.set('password', usuario.password);
     console.log(params.toString());
-    
+
     return this.http.post<any>(urlEndpoint, params.toString(), { headers: httpHeaders });
-    
+
   }
-  
+
   guardarUsuario(accessToken: string) {
     let payload = this.obtenerDatosToken(accessToken);
 
@@ -64,17 +64,25 @@ export class AuthService {
 
     sessionStorage.setItem('usuario', JSON.stringify(this._usuario));
   }
-  
+
   guardarToken(accessToken: string) {
     this._token = accessToken;
     sessionStorage.setItem('token', accessToken);
   }
 
   obtenerDatosToken(accessToken: string): any {
-    if(accessToken != null){
+    if (accessToken != null) {
       return JSON.parse(atob(accessToken.split('.')[1]));
     }
     return null;
   }
-  
+
+  isAuthenticated(): boolean {
+    let payload = this.obtenerDatosToken(this.token);
+    if (payload != null && payload.user_name && payload.user_name.length > 0) {
+      return true;
+    }
+    return false;
+  }
+
 }
