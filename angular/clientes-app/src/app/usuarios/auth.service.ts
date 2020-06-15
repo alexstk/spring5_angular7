@@ -7,7 +7,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AuthService {
-
   private _usuario: Usuario;
   private _token: string;
 
@@ -83,6 +82,14 @@ export class AuthService {
       return true;
     }
     return false;
+  }
+
+  logout(): void {
+    this._token = null;
+    this._usuario = null;
+    sessionStorage.clear();               // removes all. Just choose.
+    sessionStorage.removeItem('token');   // removes only token
+    sessionStorage.removeItem('usuario'); // removes only usuario
   }
 
 }
