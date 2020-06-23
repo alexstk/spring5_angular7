@@ -5,10 +5,8 @@ import { Cliente } from './cliente';
 import { Region } from './region';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import { Router } from '@angular/router';
-import swal from 'sweetalert2';
-import { AuthService } from '../usuarios/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,32 +14,10 @@ import { AuthService } from '../usuarios/auth.service';
 export class ClienteService {
   private urlEndPoint: string = 'http://localhost:8090/api/clientes';
   
-  constructor(private http: HttpClient, private router:Router, private authService: AuthService) { }
-
-  private isNoAutorizado(e): boolean {
-    if (e.status == 401) {   // unauthorized
-      if(this.authService.isAuthenticated()){
-        this.authService.logout();
-      }
-
-      this.router.navigate(['login']);
-      return true;
-    }
-    if (e.status == 403) {   // forbiden
-      swal.fire('Acceso Denegado', `Hola ${this.authService.usuario.username}, no tienes acceso a éste recurso!`, 'warning');
-      this.router.navigate(['/clientes']);
-      return true;
-    }
-    return false;
-  }
+  constructor(private http: HttpClient, private router:Router) { }
 
   getRegiones(): Observable<Region[]>{
-    return this.http.get<Region[]>(this.urlEndPoint + '/regiones').pipe(
-      catchError(e => {
-        this.isNoAutorizado(e);
-        return throwError(e);
-      })
-    );
+    return this.http.get<Region[]>(this.urlEndPoint + '/regiones');
   }
   
   getClientes(page: number): Observable<any> {
@@ -73,16 +49,12 @@ export class ClienteService {
     return this.http.post(this.urlEndPoint, cliente).pipe(
       map((response: any) => response.cliente as Cliente),
       catchError(e => {
-        if(this.isNoAutorizado(e)){
-          return throwError(e);
-        }
-        
         if(e.status == 400){
           return throwError(e);
         }
-
-        console.error(e.error.mensaje);
-        swal.fire(e.error.mensaje, e.error.error, 'error');
+        if (e.error.message) {
+          console.error(e.error.mensaje);
+        }
         return throwError(e);
       })
     );
@@ -91,13 +63,10 @@ export class ClienteService {
   getCliente(id: number): Observable<Cliente> {
     return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
-        if(this.isNoAutorizado(e)){
-          return throwError(e);
+        if (e.status != 401 && e.error.message) {
+          this.router.navigate(['/clientes']);
+          console.error(e.error.mensaje)
         }
-
-        this.router.navigate(['/clientes']);
-        console.error(e.error.mensaje)
-        swal.fire('Error al editar', e.error.mensaje, 'error');
         return throwError(e)
       })
     );
@@ -106,16 +75,12 @@ export class ClienteService {
   update(cliente: Cliente): Observable<any>{
     return this.http.put<any>(`${this.urlEndPoint}/${cliente.id}`, cliente).pipe(
       catchError(e => {
-        if(this.isNoAutorizado(e)){
-          return throwError(e);
-        }
-
         if(e.status == 400){
           return throwError(e);
         }
-
-        console.error(e.error.mensaje);
-        swal.fire(e.error.mensaje, e.error.error, 'error');
+        if (e.error.message) {
+          console.error(e.error.mensaje);
+        };
         return throwError(e);
       })
     );
@@ -124,12 +89,9 @@ export class ClienteService {
   delete(id: number): Observable<Cliente>{
     return this.http.delete<Cliente>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
-        if(this.isNoAutorizado(e)){
-          return throwError(e);
+        if (e.error.message) {
+          console.error(e.error.mensaje);
         }
-
-        console.error(e.error.mensaje);
-        swal.fire(e.error.mensaje, e.error.error, 'error');
         return throwError(e);
       })
     );
@@ -141,11 +103,6 @@ export class ClienteService {
     formData.append("id", id);
 
     const req = new HttpRequest('POST', `${this.urlEndPoint}/upload`, formData, { reportProgress: true });
-    return this.http.request(req).pipe(
-      catchError(e => {
-        this.isNoAutorizado(e);
-        return throwError(e);
-      })
-    );
+    return this.http.request(req);
   }
 }
