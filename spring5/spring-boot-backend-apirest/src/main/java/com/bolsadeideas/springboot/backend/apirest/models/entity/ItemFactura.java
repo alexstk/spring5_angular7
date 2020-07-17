@@ -22,6 +22,7 @@ public class ItemFactura implements Serializable {
 	private Integer cantidad;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "producto_id")	// Se podria omitir
 	private Producto producto;
 
 	public Long getId() {
