@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "facturas_items")
 public class ItemFactura implements Serializable {
@@ -21,6 +23,7 @@ public class ItemFactura implements Serializable {
 	
 	private Integer cantidad;
 	
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })	// No molestaban antes
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "producto_id")	// Se podria omitir
 	private Producto producto;
