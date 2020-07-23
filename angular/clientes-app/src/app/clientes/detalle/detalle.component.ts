@@ -55,10 +55,10 @@ export class DetalleComponent implements OnInit {
     }
   }
 
-cerrarModal(){
-  this.modalService.cerrarModal();
-  this.fotoSeleccionada = null;
-  this.progreso = 0;
-}
+  cerrarModal() {
+    this.modalService.cerrarModal();
+    this.fotoSeleccionada = null;
+    this.progreso = 0;
+  }
 
 }
