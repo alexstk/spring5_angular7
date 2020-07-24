@@ -24,7 +24,7 @@ public class ItemFactura implements Serializable {
 	private Integer cantidad;
 	
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })	// No molestaban antes
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	//@JoinColumn(name = "producto_id")	// Se podria omitir
 	private Producto producto;
 
