@@ -16,8 +16,8 @@ export class FacturasComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {
-      let clientId = +params.get('clientId');
-      this.clienteService.getCliente(clientId).subscribe(cliente => this.factura.cliente = cliente);
+      let clienteId = +params.get('clienteId');
+      this.clienteService.getCliente(clienteId).subscribe(cliente => this.factura.cliente = cliente);
     });
   }
 
