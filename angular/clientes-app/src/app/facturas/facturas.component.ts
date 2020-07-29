@@ -33,7 +33,7 @@ export class FacturasComponent implements OnInit {
 
     this.productosFiltrados = this.autocompleteControl.valueChanges
       .pipe(
-        //map(value => typeof value === 'string' ? value : value.nombre),
+        map(value => typeof value === 'string' ? value : value.nombre),
        // startWith('a'),
         flatMap(value => value ? this._filter(value) : [])
       );
@@ -45,8 +45,8 @@ export class FacturasComponent implements OnInit {
     return this.facturaService.filtrarProductos(filterValue);
   }
 
-  // mostrarNombre(producto ? : Producto ): string | undefined {
-  //   return producto ? producto.nombre : undefined;
-  // }
+  mostrarNombre(producto ? : Producto ): string | undefined {
+    return producto ? producto.nombre : undefined;
+  }
 
 }
