@@ -6,7 +6,7 @@ export class ItemFactura {
     cantidad: number = 1;
     importe: number;
 
-    // Solo para mostrar que se puede, ya que el importe viene calculado desde el backend.
+    // Solo para visualizar cambios en el FE, ya que el importe se calcula en el BE.
     public calcularImporte(): number {
         return this.cantidad * this.producto.precio;
     }
