@@ -4,7 +4,7 @@
         <h4 class="card-title">
             <button class="btn btn-light btn-xs" [routerLink]="['/clientes']">&laquo; volver</button>
         </h4>
-        <form>
+        <form #facturaForm="ngForm">
             <div class="form-group row" *ngIf="factura.cliente">
                 <label for="cliente" class="col-sm-2 col-form-label">Cliente</label>
                 <div class="col-sm-6">
@@ -15,7 +15,10 @@
             <div class="form-group row">
                 <label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
                 <div class="col-sm-6">
-                    <input type="text" name="descripcion" id="descripcion" [(ngModel)]="factura.descripcion" class="form-control">
+                    <input type="text" name="descripcion" id="descripcion" [(ngModel)]="factura.descripcion" required #descripcion="ngModel" class="form-control">
+                    <div class="alert alert-danger" *ngIf="descripcion.invalid && descripcion.touched">
+                       La descripción es requerida.
+                    </div>
                 </div>
             </div>
 
@@ -73,7 +76,7 @@
 
             <div class="form-group row">
                 <div class="col-sm-6">
-                    <input type="submit" value="Crear Factura" class="btn btn-secondary" (click)="create()">
+                    <input type="submit" value="Crear Factura" class="btn btn-secondary" (click)="create()" [disabled]="facturaForm.form.invalid || factura.items.length == 0">
                 </div>
             </div>
         </form>
