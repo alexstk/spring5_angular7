@@ -16,7 +16,7 @@
                 <label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
                 <div class="col-sm-6">
                     <input type="text" name="descripcion" id="descripcion" [(ngModel)]="factura.descripcion" required #descripcion="ngModel" class="form-control">
-                    <div class="alert alert-danger" *ngIf="descripcion.invalid && descripcion.touched">
+                    <div class="alert alert-danger" *ngIf="descripcion.invalid && descripcion.touched || descripcion.invalid && facturaForm.submitted">
                        La descripción es requerida.
                     </div>
                 </div>
@@ -44,6 +44,9 @@
                             </mat-option>
                         </mat-autocomplete>
                     </mat-form-field>
+                    <div class="alert alert-danger" *ngIf="autocompleteControl.invalid && facturaForm.submitted">
+                        La factura no puede no tener lineas!
+                     </div>
                 </div>
             </div>
 
@@ -76,7 +79,7 @@
 
             <div class="form-group row">
                 <div class="col-sm-6">
-                    <input type="submit" value="Crear Factura" class="btn btn-secondary" (click)="create()" [disabled]="facturaForm.form.invalid || factura.items.length == 0">
+                    <input type="submit" value="Crear Factura" class="btn btn-secondary" (click)="create(facturaForm)">
                 </div>
             </div>
         </form>
