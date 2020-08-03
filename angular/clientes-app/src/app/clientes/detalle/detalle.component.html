@@ -38,7 +38,7 @@
               <img *ngIf="cliente?.foto" src="http://localhost:8090/api/uploads/img/{{cliente.foto}}" alt="{{cliente.foto}}" class="img-thumbnail rounded">
             </div>
           </div>
-          <div class="row">
+          <div class="row" *ngIf="authService.hasRole('ROLE_ADMIN')">
             <button class="btn btn-success btn-sm" type="button" [routerLink]="['/facturas/form', cliente.id]">Crear Factura</button>
           </div>
           <div class="row">
@@ -53,7 +53,7 @@
                   <th>Observación</th>
                   <th>Total</th>
                   <th>Detalle</th>
-                  <th>Eliminar</th>
+                  <th *ngIf="authService.hasRole('ROLE_ADMIN')">Eliminar</th>
                 </tr>
               </thead>
               <tbody>
@@ -63,7 +63,7 @@
                   <td>{{factura.observacion}}</td>
                   <td>{{factura.total}}</td>
                   <td class="btn btn-primary btn-sm" type="button" [routerLink]="['/facturas', factura.id]">Ver</td>
-                  <td>
+                  <td *ngIf="authService.hasRole('ROLE_ADMIN')">
                     <button class="btn btn-danger btn-sm" type="button" (click)="delete(factura)">Eliminar</button>
                   </td>
                 </tr>
