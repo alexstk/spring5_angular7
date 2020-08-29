@@ -11,9 +11,9 @@ import Swal from 'sweetalert2';
 })
 export class FormComponent implements OnInit {
 
-  private cliente: Cliente = new Cliente();
-  private regiones: Region[];
-  private titulo: string = 'Crear Cliente';
+  cliente: Cliente = new Cliente();
+  regiones: Region[];
+  titulo: string = 'Crear Cliente';
 
   private errores: string[];
 

@@ -19,12 +19,12 @@ export class DetalleComponent implements OnInit {
   @Input() cliente: Cliente;
   titulo: string = 'Detalle del Cliente';
   private fotoSeleccionada: File;
-  private progreso: number = 0;
+  progreso: number = 0;
 
   constructor(private clienteService: ClienteService,
     private facturaService: FacturaService,
-    private authService: AuthService,
-    private modalService: ModalService) { }
+    public authService: AuthService,
+    public modalService: ModalService) { }
 
   ngOnInit() {
     
