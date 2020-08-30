@@ -18,7 +18,7 @@ export class DetalleComponent implements OnInit {
   
   @Input() cliente: Cliente;
   titulo: string = 'Detalle del Cliente';
-  private fotoSeleccionada: File;
+  fotoSeleccionada: File;
   progreso: number = 0;
 
   constructor(private clienteService: ClienteService,

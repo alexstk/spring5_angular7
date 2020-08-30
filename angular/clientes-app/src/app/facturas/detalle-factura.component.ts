@@ -9,8 +9,8 @@ import { FacturaService } from './services/factura.service';
 })
 export class DetalleFacturaComponent implements OnInit {
 
+  titulo: string = 'Detalle de la Factura';
   factura: Factura;
-  nombre: string = 'Factura';
 
   constructor(private activatedRoute: ActivatedRoute, private facturaService: FacturaService) { }
 
