@@ -8,6 +8,7 @@ import { AuthService } from '../../usuarios/auth.service';
 import { Factura } from '../../facturas/models/factura';
 import { FacturaService } from '../../facturas/services/factura.service';
 import Swal from 'sweetalert2';
+import { URL_BACKEND } from '../../config/config';
 
 @Component({
   selector: 'detalle-cliente',
@@ -20,6 +21,7 @@ export class DetalleComponent implements OnInit {
   titulo: string = 'Detalle del Cliente';
   fotoSeleccionada: File;
   progreso: number = 0;
+  urlBackend: string = URL_BACKEND;
 
   constructor(private clienteService: ClienteService,
     private facturaService: FacturaService,

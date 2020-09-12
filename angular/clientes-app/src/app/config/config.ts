@@ -1,0 +1,1 @@
+export const URL_BACKEND =  'https://springbt2-heroku.herokuapp.com';
