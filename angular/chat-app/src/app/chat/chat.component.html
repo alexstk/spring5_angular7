@@ -9,12 +9,18 @@
             </li>
         </ul>
     </div>
-    <div class="card-body" style="overflow-y: scroll; height: 360px;" *ngIf="conectado"></div>
+    <div class="card-body" style="overflow-y: scroll; height: 360px;" *ngIf="conectado">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item list-group-item-light" *ngFor="let mensaje of mensajes">
+                {{mensaje.fecha | date: 'shortTime'}} : {{mensaje.texto}}
+            </li>
+        </ul>
+    </div>
     <div class="card-footer" *ngIf="conectado">
         <form class="form-inline">
             <div class="form-group">
-                <input type="text" class="form-control mx-3" placeholder="Escribe un mensaje..." name="texto">
-                <button class="btn btn-primary" type="submit">Enviar</button>
+                <input type="text" [(ngModel)]="mensaje.texto" class="form-control mx-3" placeholder="Escribe un mensaje..." name="texto">
+                <button class="btn btn-primary" type="submit" (click)="enviarMensaje()">Enviar</button>
             </div>
         </form>
     </div>
