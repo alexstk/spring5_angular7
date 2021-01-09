@@ -8,6 +8,7 @@ public class Mensaje implements Serializable {
 	private Long fecha;
 	private String username;
 	private String tipo;
+	private String color;
 
 	public String getTexto() {
 		return texto;
@@ -39,6 +40,14 @@ public class Mensaje implements Serializable {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 	private static final long serialVersionUID = -3777582564067492550L;
