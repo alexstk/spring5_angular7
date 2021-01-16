@@ -1,7 +1,6 @@
 package com.bolsadeideas.springboot.backend.chat.controllers;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
